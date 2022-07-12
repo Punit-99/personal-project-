@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rokkitt:wght@100&display=swap" rel="stylesheet">
+
+    <script>
+        window.onload = (event) => {
+            clock_24();
+        };
+
+        let timer;
+
+        function clock_24() {
+            let a;
+            let date;
+            let time;
+            const options = {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            };
+            clearInterval(timer);
+            timer = setInterval(() => {
+                a = new Date();
+                date = a.toLocaleDateString(undefined, options);
+                let hours = String(a.getHours()).padStart(2, '0');
+                let min = String(a.getMinutes()).padStart(2, '0');
+                let sec = String(a.getSeconds()).padStart(2, '0');
+                let milli = a.getMilliseconds();
+                time = hours + ':' + min + ':' + sec + ':' + milli;
+                document.getElementById('time').innerHTML = time
+                document.getElementById('date').innerHTML = date
+            }, 1);
+
+
+            // foramt-change
+            document.getElementById("format").innerHTML = "24 Hour format";
+            document.getElementById("format").style.fontSize = "32px";
+            document.getElementById("format").style.fontfamily = 'Times New Roman';
+            console.log('24_loaded');
+        }
+
+
+        // onclick - event-12-hour-format-clock
+        // time-12f
+        function clock_12() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                var date = new Date();
+                var hh_12 = date.getHours() > 12 ? date.getHours() - 12 : date.getHours();
+                var session_12 = date.getHours() >= 12 ? "PM" : "AM";
+                hh_12 = hh_12 < 10 ? "0" + hh_12 : hh_12;
+                var mm_12 = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+                var ss_12 = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+                tt_12 = hh_12 + ":" + mm_12 + ":" + ss_12 + " " + session_12;
+                document.getElementById('time').innerHTML = tt_12
+                // date-12f
+                const options = {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                };
+                date = date.toLocaleDateString(undefined, options);
+                document.getElementById('date').innerHTML = date
+            }, 1000);
+
+
+
+            // foramt-change
+            document.getElementById("format").innerHTML = "12 Hour format";
+            document.getElementById("format").style.fontSize = "32px";
+            document.getElementById("format").style.fontfamily = 'Times New Roman';
+            console.log('12_loaded');
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .t-d-cont {
+            background-color: gray;
+            margin: 50px;
+            padding: 50px;
+        }
+
+        #format {
+            border-left: 2px solid rgb(70, 166, 239);
+            margin-bottom: 20px;
+            padding-left: 20px;
+            font-weight: bold;
+        }
+
+        .redline {
+            border-left: 2px solid red;
+            width: 100%;
+            padding-left: 20px;
+        }
+
+        .time-box {
+            margin-bottom: 50px;
+        }
+
+        #time {
+            font-family: 'Rokkitt', serif;
+            font-size: 45px;
+        }
+
+        .date-box {
+            margin-bottom: 30px;
+        }
+
+        #date {
+            font-family: 'Rokkitt', serif;
+            font-size: 45px;
+        }
+
+        .dropbtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn-2 {
+            background-color: #4CAF50;
+            color: white;
+            padding: 16px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-left: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- time and date container  -->
+    <div class="t-d-cont">
+        <div id="format">
+            <h1>24 Hour format</h1>
+        </div>
+        <div class="redline ">
+            <div class="time-box">
+                <h1>Current Time: <span id="time"></span></h1>
+
+            </div>
+            <div class="date-box">
+                <h1> Today's Date: <span id="date"></span></h1>
+            </div>
+        </div>
+        <!-- 24 hour-button -->
+        <div class="dropdown">
+            <button class="dropbtn-2" onclick="clock_24();">24-hour-format</button>
+        </div>
+        <!-- 12 hour-button -->
+        <div class="dropdown">
+            <button class="dropbtn" onclick="clock_12();">12-hour-format</button>
+        </div>
+
+    </div>
+
+</body>
+
+
+</html>
